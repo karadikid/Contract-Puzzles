@@ -7,13 +7,18 @@ describe("Game5", function () {
     await game.deployed();
 
     //Get signers and addresses
-    const signer = new ethers.Wallet.createRandom();
+    let signer = new ethers.Wallet.createRandom();
+    while(signer.address >= "0x00FfFFfFFFfFFFFFfFfFfffFFFfffFfFffFfFFFf") {
+      signer = ethers.Wallet.createRandom();
+    }
     //Traditional 
     const signer1= ethers.provider.getSigner(1);
     
-    const sendTx = await signer1.sendTransaction({to: signer.address, value: 10000})
-    receipt = sendTx;
-    console.log(receipt);
+    const sendTx = await signer1.sendTransaction({to: signer.address, value: ethers.utils.parseEther("200")})
+    
+    //Logging
+    //receipt = sendTx;
+    //console.log(receipt);
 
     // good luck
     // to call a contract as a signer you can use contract.connect
